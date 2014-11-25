@@ -416,15 +416,13 @@ public abstract class InputStreamAt implements Closeable {
 	            			MediaStore.MediaColumns.MIME_TYPE, MediaStore.MediaColumns.DATA};
 	            	String selection = null;
 	            	String[] selectionArgs = null;
-	            	Uri tmpUri = null;
+	            	Uri tmpUri = uri;
 	            	if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
 	            		if(android.provider.DocumentsContract.isDocumentUri(context, uri)){
 	            			String documentId = android.provider.DocumentsContract.getDocumentId(uri);
 	                		selectionArgs = new String[] { documentId.split(":")[1] };
 	                		tmpUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
 	                		selection = "_id=?";
-	            		} else {
-	            			tmpUri = uri;
 	            		}
 	            	}
 	                cursor = resolver.query(tmpUri, col, selection, selectionArgs, null);
